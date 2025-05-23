@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { getPosters } from "../api/getPosters";
+import { useDebounce } from "../hooks/useDebounce";
 
 export const MovieList = () => {
   const [query, setQuery] = useState("");
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
 
+  const debouncedQuery = useDebounce(query, 500);
+
   useEffect(() => {
-    if (!query) return;
+    if (!debouncedQuery) return;
     async function getMovies() {
       try {
-        const resp = await getPosters(query, page);
+        const resp = await getPosters(debouncedQuery, page);
         setMovie(resp.Search || []);
       } catch (error) {
         console.log(error);
       }
     }
     getMovies();
-  }, [query, page]);
+  }, [debouncedQuery, page]);
   return (
     <>
       {" "}
@@ -42,12 +45,13 @@ export const MovieList = () => {
           )}
         </div>
       ))}
-      <button type="button" onClick={() => setPage((prev) => prev + 1)}>
-        next page
-      </button>
       <button type="button" onClick={() => setPage((prev) => prev - 1)}>
         prev page
       </button>
+      <button type="button" onClick={() => setPage((prev) => prev + 1)}>
+        next page
+      </button>
+      
     </>
   );
 };
