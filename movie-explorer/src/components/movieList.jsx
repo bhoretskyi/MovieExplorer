@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { useCachedFetch } from "../hooks/useCachedFetch";
 const API_KEY = "912f8b69";
@@ -14,10 +14,35 @@ export const MovieList = () => {
   const { data } = useCachedFetch(url ?? "");
   const movies = data?.Search || [];
 
+  useEffect(() => {
+    const favorites = localStorage.getItem("favorites");
+    if (favorites === "[null]") {
+      localStorage.setItem("favorites", "[]");
+    }
+  }, []);
+  const addToFavorites = (movie) => {
+    if (!movie || !movie.imdbID) {
+      console.log("there is no movie");
+      return;
+    }
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+    const added = favorites.find((i) => i.imdbID === movie.imdbID);
+    if (!added) {
+      const newFavorites = [...favorites, movie];
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+    }
+  };
+
   return (
     <>
-      {" "}
-      <input type="text" onChange={(e) => {setQuery(e.target.value); setPage(1)}} />
+      <input
+        type="text"
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setPage(1);
+        }}
+      />
       <h1>Media Explorer</h1>
       {movies.map((movie) => (
         <div key={movie.imdbID}>
@@ -36,6 +61,14 @@ export const MovieList = () => {
               }}
             />
           )}
+          <button
+            type="button"
+            onClick={() => {
+              addToFavorites(movie);
+            }}
+          >
+            add to favorite
+          </button>
         </div>
       ))}
       <button type="button" onClick={() => setPage((prev) => prev - 1)}>

@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import { MovieList } from "./components/movieList.jsx";
-import { Favorites } from "./Favorites.jsx";
+import { MovieList } from "./components/MovieList.jsx";
+import { Favorites } from "./components/Favorites.jsx";
 function App() {
   return (
     <BrowserRouter basename="/MovieExplorer">
