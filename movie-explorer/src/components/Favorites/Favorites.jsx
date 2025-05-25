@@ -32,7 +32,7 @@ export const Favorites = () => {
         exit={{ opacity: 0 }}
       >
         {" "}
-        {favorites.map((movie) => (
+        {favorites.length>=1 ? favorites.map((movie) => (
           <MovieCard key={movie.imdbID}>
             <CardInfo>
               {" "}
@@ -72,7 +72,7 @@ export const Favorites = () => {
   </svg>
             </FavoriteButton>
           </MovieCard>
-        ))}
+        )) : <h1>Add your favorite movie</h1>}
       </MotionList>
     </>
   );

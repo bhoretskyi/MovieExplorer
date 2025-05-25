@@ -27,4 +27,5 @@ export const List = styled.div`
   background-image: url(${bgImage});
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 500px;
 `;

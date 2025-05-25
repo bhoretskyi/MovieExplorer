@@ -12,7 +12,7 @@ export const BunnerContainer = styled.div`
   display: flex;
   align-items: center;
   color: white;
-  font-size: 46px;
+  font-size: 36px;
   font-weight: 400;
   line-height: 90px;
   letter-spacing: 0%;

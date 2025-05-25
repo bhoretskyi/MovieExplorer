@@ -24,7 +24,7 @@ export const MovieList = ({ query }) => {
     ? `https://www.omdbapi.com/?apikey=${API_KEY}&s=${debouncedQuery}&page=${page}`
     : null;
   const { data } = useCachedFetch(url ?? "");
-  const movies = data?.Search || [];
+  const movies = debouncedQuery ? data?.Search || [] : []
 
   useEffect(() => {
     const favorites = localStorage.getItem("favorites");
