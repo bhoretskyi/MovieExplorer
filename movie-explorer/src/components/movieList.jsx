@@ -56,7 +56,6 @@ export const MovieList = () => {
           setPage(1);
         }}
       />
-      <h1>Media Explorer</h1>
       {movies.map((movie) => {
         const favorite = isFavorite(movie);
         return (
