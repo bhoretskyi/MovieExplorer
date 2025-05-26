@@ -2,7 +2,7 @@ import styled from "styled-components";
 import bgImage from "../../img/bg.jpeg";
 
 export const CardInfo = styled.div`
-  height: 100px;
+  height: 50px;
 `;
 
 export const FavoriteButton = styled.button`
@@ -15,6 +15,10 @@ export const FavoriteButton = styled.button`
   align-items: center;
   justify-content: space-around;
   width: 150px;
+  &:hover {
+    border: 1px solid white;
+    transition: border 0.3s ease;
+  }
 `;
 
 export const List = styled.div`

@@ -16,8 +16,8 @@ export const Logo = styled.h2`
   }
 `;
 export const HeaderBlock = styled.header`
-  padding-top: 42px;
-  padding-bottom: 31px;
+  padding-top: 32px;
+  padding-bottom: 21px;
   padding-left: 10px;
   padding-right: 10px;
   display: flex;

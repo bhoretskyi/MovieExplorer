@@ -12,7 +12,6 @@ import {
   CardInfo,
 } from "./MovieListStyled";
 import banner from "../../img/splash.png";
-import { motion } from "motion/react";
 const API_KEY = "912f8b69";
 
 export const MovieList = ({ query }) => {
@@ -28,7 +27,7 @@ export const MovieList = ({ query }) => {
 
   useEffect(() => {
     const favorites = localStorage.getItem("favorites");
-    if (favorites === "[null]") {
+    if (!favorites || favorites === "[null]") {
       localStorage.setItem("favorites", "[]");
     }
   }, [favoriteList]);
@@ -56,7 +55,6 @@ export const MovieList = ({ query }) => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     return favorites.some((i) => i.imdbID === movie.imdbID);
   };
-  const MotionList = motion(List)
 
   return (
     <>
@@ -64,17 +62,17 @@ export const MovieList = ({ query }) => {
         {!movies.length >= 1 ? (
           <BunnerContainer>
             <h1>Dive into a universe of un-ending content and channels</h1>
-            <img src={banner} alt="" />
+            <img src={banner} width='850px' alt="banner" />
           </BunnerContainer>
         ) : (
           <div>
             {" "}
-            <MotionList  initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
+            <List>
               {movies.map((movie) => {
                 const favorite = isFavorite(movie);
                 return (
                   <MovieCard key={movie.imdbID}>
-                    <CardInfo><h2>{movie.Title}</h2>
+                    <CardInfo><h3>{movie.Title}</h3>
                     <p>{movie.Year}</p></CardInfo>
                     {movie.Poster === "N/A" ? (
                       <p>there is no movie poster</p>
@@ -82,8 +80,8 @@ export const MovieList = ({ query }) => {
                       <img
                         src={movie.Poster}
                         alt={movie.Title}
-                        height="500px"
-                        width="320px"
+                        height="300px"
+                        width="190px"
                         onError={(e) => {
                           e.target.onError = null;
                           e.target.src =
@@ -117,7 +115,7 @@ export const MovieList = ({ query }) => {
                   </MovieCard>
                 );
               })}
-            </MotionList>
+            </List>
             <Buttons>
               {" "}
               {page > 1 && (

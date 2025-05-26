@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    /* max-width: 1920px; */
+    max-width: 1920px;
     font-family: "Ubuntu", sans-serif;
     margin: 0 auto;
 }

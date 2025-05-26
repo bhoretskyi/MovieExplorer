@@ -34,7 +34,7 @@ export const MovieCard = styled.div`
   flex-direction: column;
   border: 1px solid white;
   border-radius: 5%;
-  width: 350px;
+  width: 250px;
   padding-top: 10px;
   align-items: center;
   padding-bottom: 10px;
@@ -61,6 +61,10 @@ color: white;
 
 
   padding: 10px 34px 10px 34px;
+  &:hover {
+    border: 1px solid white;
+    transition: border 0.3s ease;
+  }
 `;
 export const FavoriteButton = styled.button`
   border-radius: 60px;
@@ -71,10 +75,14 @@ export const FavoriteButton = styled.button`
   align-items: center;
   justify-content: space-around;
   width: 150px;
+   &:hover {
+    border: 1px solid white;
+    transition: border 0.3s ease;
+  }
 
 `
 export const CardInfo = styled.div`
-    height: 100px;
+    height: 50px;
     /* color: var(--text-color); */
 
 `

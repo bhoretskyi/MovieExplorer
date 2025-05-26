@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { MovieCard} from "../MovieList/MovieListStyled";
 import { CardInfo, FavoriteButton,  List } from "./FavoritesStyled";
-import { motion } from "motion/react";
+import { motion, AnimatePresence, animate } from "motion/react";
+  const MotionList = motion(List);
+  const MotionCard = motion(MovieCard)
+
 export const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   useEffect(() => {
@@ -23,7 +26,6 @@ export const Favorites = () => {
     setFavorites(filtered);
     localStorage.setItem("favorites", JSON.stringify(filtered));
   };
-  const MotionList = motion(List);
   return (
     <>
       <MotionList
@@ -32,11 +34,12 @@ export const Favorites = () => {
         exit={{ opacity: 0 }}
       >
         {" "}
-        {favorites.length>=1 ? favorites.map((movie) => (
-          <MovieCard key={movie.imdbID}>
+       <AnimatePresence>
+         {favorites.length>=1 ? favorites.map((movie) => (
+          <MotionCard key={movie.imdbID} layout initial={{opacity:0, y: 30}} animate={{opacity:1, y:0}} exit={{opacity:0, y: -30}} transition={{duration: 0.3}}>
             <CardInfo>
               {" "}
-              <h2>{movie.Title}</h2>
+              <h3>{movie.Title}</h3>
               <p>{movie.Year}</p>
             </CardInfo>
             {movie.Poster === "N/A" ? (
@@ -45,8 +48,8 @@ export const Favorites = () => {
               <img
                 src={movie.Poster}
                 alt={movie.Title}
-                height="500px"
-                width="320px"
+                height="300px"
+                width="190px"
                 onError={(e) => {
                   e.target.onError = null;
                   e.target.src =
@@ -71,8 +74,9 @@ export const Favorites = () => {
     <path d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z" />
   </svg>
             </FavoriteButton>
-          </MovieCard>
+          </MotionCard>
         )) : <h1>Add your favorite movie</h1>}
+       </AnimatePresence>
       </MotionList>
     </>
   );
